@@ -12,14 +12,30 @@ public class VirtualThread {
         try {
             // Method 1
             Thread vt = Thread.ofVirtual().name("B**-thread").start(() -> {
-                log.info("Hello from Virtual Thread {}", Thread.currentThread());
+                log.info("VT Method 1 {}", Thread.currentThread());
             });
+            try {
+                vt.join();
+            } catch (InterruptedException e) {
+                log.error("VT thread join interrupted", e);
+            }
 
             // Method 2
+            Thread vtThread = Thread.startVirtualThread(() -> {
+                log.info("VT Method 2 main method executed");
+            });
+
+            try {
+                vtThread.join();
+            } catch (InterruptedException e) {
+                log.error("VT thread join interrupted", e);
+            }
+
+            // Method 3
             try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
                 IntStream.range(0, 10).forEach(i -> {
                     executor.submit(() -> {
-                        log.info("Thread (Executor) {} will sleep for 1 second", i);
+                        log.info("VT method 3 Thread (Executor) {} will sleep for 1 second", i);
                         Thread.sleep(Duration.ofSeconds(1));
                         return i;
                     });
