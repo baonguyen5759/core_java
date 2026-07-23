@@ -1,11 +1,11 @@
-package com.bao.core_java.async;
+package com.bao.core_java.threads;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
-public class SampleCompetable {
+public class CompletableExample {
 
     void main() {
 
