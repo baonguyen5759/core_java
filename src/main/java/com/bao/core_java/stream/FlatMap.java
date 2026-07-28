@@ -8,6 +8,7 @@ import java.util.List;
 public class FlatMap {
 
     void main() {
+
         List<List<Integer>> numbers = List.of(List.of(1, 2), List.of(3, 4));
 
         List<Integer> result = numbers.stream().flatMap(List::stream).toList();

@@ -42,9 +42,10 @@ class MapAndAggregation {
         Map<String, Double> avgServiceProvider = new HashMap<>();
         serviceProviders.stream().forEach(x -> {
             List<Order> orders = x.getOrders();
-            double avgDelieveryTime = orders.stream().map(y -> y.getDeliveryTime()).mapToInt(Integer::intValue).average().orElse(0);
-            avgServiceProvider.put(x.getName(), avgDelieveryTime);
+            double avgDeliveryTime = orders.stream().map(y -> y.getDeliveryTime()).mapToInt(Integer::intValue).average().orElse(0);
+            avgServiceProvider.put(x.getName(), avgDeliveryTime);
         });
+
         log.info("Service Provider Avg time: {}", avgServiceProvider);
 
         Map.Entry<String, Double> minEntry = avgServiceProvider.entrySet().stream().min(Map.Entry.comparingByValue()).orElseThrow();
